@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="406ddba3e03e4527ad395fb2e07b6174" Name="Diagram1">
+        <EntityTypeShape EntityType="PekarnyaModel.ElementGoods" Width="1.5" PointX="8.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PekarnyaModel.Goods" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PekarnyaModel.ingridients" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PekarnyaModel.Provider" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PekarnyaModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="PekarnyaModel.UnitMoney" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PekarnyaModel.Units" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <AssociationConnector Association="PekarnyaModel.FK_ElementGoods_Goods" ManuallyRouted="false" />
+        <AssociationConnector Association="PekarnyaModel.FK_ElementGoods_ingridients" ManuallyRouted="false" />
+        <AssociationConnector Association="PekarnyaModel.FK_Goods_UnitMoney" ManuallyRouted="false" />
+        <AssociationConnector Association="PekarnyaModel.FK_Goods_Units" ManuallyRouted="false" />
+        <AssociationConnector Association="PekarnyaModel.FK_ingridients_Provider" ManuallyRouted="false" />
+        <AssociationConnector Association="PekarnyaModel.FK_ingridients_UnitMoney" ManuallyRouted="false" />
+        <AssociationConnector Association="PekarnyaModel.FK_ingridients_Units" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

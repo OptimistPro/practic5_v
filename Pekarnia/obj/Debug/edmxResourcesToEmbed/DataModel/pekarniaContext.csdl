@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PekarnyaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ElementGoods">
+    <Key>
+      <PropertyRef Name="idElement" />
+    </Key>
+    <Property Name="idElement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idGoods" Type="Int32" Nullable="false" />
+    <Property Name="idIngridients" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK_ElementGoods_Goods" FromRole="ElementGoods" ToRole="Goods" />
+    <NavigationProperty Name="ingridients" Relationship="Self.FK_ElementGoods_ingridients" FromRole="ElementGoods" ToRole="ingridients" />
+  </EntityType>
+  <EntityType Name="Goods">
+    <Key>
+      <PropertyRef Name="idGoods" />
+    </Key>
+    <Property Name="idGoods" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Quantity" Type="Double" Nullable="false" />
+    <Property Name="idUnit" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="idUnitMoney" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ElementGoods" Relationship="Self.FK_ElementGoods_Goods" FromRole="Goods" ToRole="ElementGoods" />
+    <NavigationProperty Name="UnitMoney" Relationship="Self.FK_Goods_UnitMoney" FromRole="Goods" ToRole="UnitMoney" />
+    <NavigationProperty Name="Units" Relationship="Self.FK_Goods_Units" FromRole="Goods" ToRole="Units" />
+  </EntityType>
+  <EntityType Name="ingridients">
+    <Key>
+      <PropertyRef Name="idIngridients" />
+    </Key>
+    <Property Name="idIngridients" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Quantity" Type="Double" Nullable="false" />
+    <Property Name="Unit" Type="Int32" Nullable="false" />
+    <Property Name="idProvider" Type="Int32" Nullable="false" />
+    <Property Name="idUnitMoney" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="ElementGoods" Relationship="Self.FK_ElementGoods_ingridients" FromRole="ingridients" ToRole="ElementGoods" />
+    <NavigationProperty Name="Provider" Relationship="Self.FK_ingridients_Provider" FromRole="ingridients" ToRole="Provider" />
+    <NavigationProperty Name="UnitMoney" Relationship="Self.FK_ingridients_UnitMoney" FromRole="ingridients" ToRole="UnitMoney" />
+    <NavigationProperty Name="Units" Relationship="Self.FK_ingridients_Units" FromRole="ingridients" ToRole="Units" />
+  </EntityType>
+  <EntityType Name="Provider">
+    <Key>
+      <PropertyRef Name="idProvider" />
+    </Key>
+    <Property Name="idProvider" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ingridients" Relationship="Self.FK_ingridients_Provider" FromRole="Provider" ToRole="ingridients" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UnitMoney">
+    <Key>
+      <PropertyRef Name="idUnit" />
+    </Key>
+    <Property Name="idUnit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK_Goods_UnitMoney" FromRole="UnitMoney" ToRole="Goods" />
+    <NavigationProperty Name="ingridients" Relationship="Self.FK_ingridients_UnitMoney" FromRole="UnitMoney" ToRole="ingridients" />
+  </EntityType>
+  <EntityType Name="Units">
+    <Key>
+      <PropertyRef Name="idUnit" />
+    </Key>
+    <Property Name="idUnit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Goods" Relationship="Self.FK_Goods_Units" FromRole="Units" ToRole="Goods" />
+    <NavigationProperty Name="ingridients" Relationship="Self.FK_ingridients_Units" FromRole="Units" ToRole="ingridients" />
+  </EntityType>
+  <Association Name="FK_ElementGoods_Goods">
+    <End Role="Goods" Type="Self.Goods" Multiplicity="1" />
+    <End Role="ElementGoods" Type="Self.ElementGoods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Goods">
+        <PropertyRef Name="idGoods" />
+      </Principal>
+      <Dependent Role="ElementGoods">
+        <PropertyRef Name="idGoods" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ElementGoods_ingridients">
+    <End Role="ingridients" Type="Self.ingridients" Multiplicity="1" />
+    <End Role="ElementGoods" Type="Self.ElementGoods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ingridients">
+        <PropertyRef Name="idIngridients" />
+      </Principal>
+      <Dependent Role="ElementGoods">
+        <PropertyRef Name="idIngridients" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Goods_UnitMoney">
+    <End Role="UnitMoney" Type="Self.UnitMoney" Multiplicity="1" />
+    <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UnitMoney">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="Goods">
+        <PropertyRef Name="idUnitMoney" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Goods_Units">
+    <End Role="Units" Type="Self.Units" Multiplicity="1" />
+    <End Role="Goods" Type="Self.Goods" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Units">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="Goods">
+        <PropertyRef Name="idUnit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ingridients_Provider">
+    <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+    <End Role="ingridients" Type="Self.ingridients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provider">
+        <PropertyRef Name="idProvider" />
+      </Principal>
+      <Dependent Role="ingridients">
+        <PropertyRef Name="idProvider" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ingridients_UnitMoney">
+    <End Role="UnitMoney" Type="Self.UnitMoney" Multiplicity="1" />
+    <End Role="ingridients" Type="Self.ingridients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UnitMoney">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="ingridients">
+        <PropertyRef Name="idUnitMoney" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ingridients_Units">
+    <End Role="Units" Type="Self.Units" Multiplicity="1" />
+    <End Role="ingridients" Type="Self.ingridients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Units">
+        <PropertyRef Name="idUnit" />
+      </Principal>
+      <Dependent Role="ingridients">
+        <PropertyRef Name="Unit" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PekarnyaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ElementGoods" EntityType="Self.ElementGoods" />
+    <EntitySet Name="Goods" EntityType="Self.Goods" />
+    <EntitySet Name="ingridients" EntityType="Self.ingridients" />
+    <EntitySet Name="Provider" EntityType="Self.Provider" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="UnitMoney" EntityType="Self.UnitMoney" />
+    <EntitySet Name="Units" EntityType="Self.Units" />
+    <AssociationSet Name="FK_ElementGoods_Goods" Association="Self.FK_ElementGoods_Goods">
+      <End Role="Goods" EntitySet="Goods" />
+      <End Role="ElementGoods" EntitySet="ElementGoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ElementGoods_ingridients" Association="Self.FK_ElementGoods_ingridients">
+      <End Role="ingridients" EntitySet="ingridients" />
+      <End Role="ElementGoods" EntitySet="ElementGoods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Goods_UnitMoney" Association="Self.FK_Goods_UnitMoney">
+      <End Role="UnitMoney" EntitySet="UnitMoney" />
+      <End Role="Goods" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Goods_Units" Association="Self.FK_Goods_Units">
+      <End Role="Units" EntitySet="Units" />
+      <End Role="Goods" EntitySet="Goods" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ingridients_Provider" Association="Self.FK_ingridients_Provider">
+      <End Role="Provider" EntitySet="Provider" />
+      <End Role="ingridients" EntitySet="ingridients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ingridients_UnitMoney" Association="Self.FK_ingridients_UnitMoney">
+      <End Role="UnitMoney" EntitySet="UnitMoney" />
+      <End Role="ingridients" EntitySet="ingridients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ingridients_Units" Association="Self.FK_ingridients_Units">
+      <End Role="Units" EntitySet="Units" />
+      <End Role="ingridients" EntitySet="ingridients" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
